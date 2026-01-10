@@ -270,6 +270,13 @@ M.command_exists_in_path = function(command)
 end
 ----------
 
+M.get_python_exe = function()
+  if vim.env.VIRTUAL_ENV then
+    return vim.fn.getcwd() .. "/.venv/bin/python3"
+  end
+  return vim.fn.exepath("python3")
+end
+
 -- Get Pyenv Packages if active
 M.get_venv_command = function(command)
   if vim.env.VIRTUAL_ENV then

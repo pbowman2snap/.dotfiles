@@ -248,10 +248,10 @@ return {
       })
     end,
     opts = {
-      file_types = { "markdown", "codecompanion" },
+      file_types = { "markdown", "quarto" },
       render_modes = { "n", "c", "t" },
     },
-    ft = { "markdown", "codecompanion" },
+    ft = { "markdown", "quarto" },
   },
   -- Comment Flair
   {
@@ -322,5 +322,4 @@ return {
       vim.keymap.set("n", "<leader>sx", strudel.execute, { desc = "Strudel set current buffer and update" })
     end,
   },
-  ----------
 }

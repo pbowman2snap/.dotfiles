@@ -70,7 +70,6 @@
 vim.g["config_path"] = "~/.config/nvim"
 vim.g["mapleader"] = " "
 vim.g.report = 1000
-
 vim.opt.termguicolors = true
 ----------
 
@@ -144,6 +143,7 @@ local config = require("config")
 local utils = config.utils
 local tC = utils.tableConcat
 local python_path = utils.get_python_path()
+local python_exe = utils.get_python_exe()
 local python_packages = utils.get_python_packages()
 local fn = vim.fn
 ----------
@@ -206,6 +206,7 @@ require("mini.starter").setup({
 ----------
 vim.g["do_filetype_lua"] = 1
 vim.g["did_load_filetypes"] = 0
+vim.g.python3_host_prog = python_exe
 ----------
 
 --------------------------------
@@ -576,6 +577,34 @@ vim.keymap.set({ "n", "v" }, lk.database.key .. "x", "<Plug>(DBUI_ExecuteQuery)"
 ----------
 vim.g.db_ui_use_nerd_fonts = 1
 ----------
+
+--------------------------------
+-- Notebook Shite
+--------------------------------
+
+vim.g.molten_auto_open_output = false
+vim.g.molten_image_provider = "image.nvim"
+vim.g.molten_wrap_output = true
+vim.g.molten_virt_text_output = true
+vim.g.molten_virt_lines_off_by_1 = true
+descMap({ "n" }, lk.notebook, "a", ":MoltenEvaluateOperator<CR>", "Molten Something?")
+
+vim.keymap.set(
+  "n",
+  "<localleader>os",
+  ":noautocmd MoltenEnterOutput<CR>",
+  { desc = "open output window", silent = true }
+)
+vim.keymap.set("n", "<localleader>rr", ":MoltenReevaluateCell<CR>", { desc = "re-eval cell", silent = true })
+vim.keymap.set(
+  "v",
+  "<localleader>r",
+  ":<C-u>MoltenEvaluateVisual<CR>gv",
+  { desc = "execute visual selection", silent = true }
+)
+vim.keymap.set("n", "<localleader>oh", ":MoltenHideOutput<CR>", { desc = "close output window", silent = true })
+vim.keymap.set("n", "<localleader>md", ":MoltenDelete<CR>", { desc = "delete Molten cell", silent = true })
+vim.keymap.set("n", "<localleader>mx", ":MoltenOpenInBrowser<CR>", { desc = "open output in browser", silent = true })
 
 --------------------------------
 ---- EOF

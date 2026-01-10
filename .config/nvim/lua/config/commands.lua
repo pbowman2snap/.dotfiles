@@ -105,6 +105,12 @@ M.setup = function()
   ----------
   vim.api.nvim_create_autocmd({ "VimLeavePre", "FocusLost" }, {
     callback = function()
+      -- Guard Clauses for REPL stuff (e.g. jupyter)
+      local win_config = vim.api.nvim_win_get_config(0)
+      if vim.fn.getcmdwintype() ~= "" or win_config.relative ~= "" then
+        return
+      end
+      -- If not
       if vim.fn.filereadable(vim.fn.getcwd() .. "/.nvim.lua") then
         vim.cmd.mksession({ bang = true })
         vim.o.shadafile = "./local.shada"
