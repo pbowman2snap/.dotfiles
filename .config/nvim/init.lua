@@ -6,35 +6,12 @@
 --------------------------------
 -- TODOS
 --------------------------------
--- TODO: config.utils table_concat, update it so it works with any number of tables
--- TODO: Figure out why config module is populating "completion" table
---      local has_completion,completion = pcall(require, 'completion')
-----------
--- Notifications
-----------
--- TODO: Get mini.notify, vim.print, and snacks.ui to work together
-----------
 -- Snippets
 ----------
 -- TODO: Figure out a way to only add a snippet if the file is titled a certain way. e.g. .debug_config.lua
 -- BUG: DBT snippets keep trying to load in average sql files
 -- FIX: I think I need a way to tell if I"m in a dbt project and then load extra snips configd on that in the sql snip
 -- file?
-----------
--- Filetype Stuff
-----------
--- TODO: Set up filetype settings for best practices - as in not all the lsp setup stuff in this file rather in their
--- own filetype files
--- TODO: Create a way to automatically make line length set for certain filetypes
-----------
--- Formatter
-----------
--- TODO: SQL figure out a way to get the formatter working with query files in dadbodui
-----------
--- Terminal
-----------
--- TODO: Get rid of toggle term and just use the api from DVries video
-----------
 -- DAP
 -- BUG: Can't have more than one config in a debug_conf file.
 -- TODO: Create a command to edit/reload project dap configurations in place
@@ -45,19 +22,15 @@
 ----------
 -- LSP
 ----------
--- TODO: YAMLLS: fix '---' document start error
 -- TODO: Switch from obsidian to markdown-oxide
 -- Figure out a way to make sure that you know you're in a learning directory so you can switch on oxide rather than
 -- marksman
 -- SUGGESTION: Use root-markers for this
 ----------
--- FORMATTING
-----------
 -- FEATURE: Figure out a way to run mypy on a folder and then send all of the errors to the quick-fix list
 ----------
 -- DADBOD
 ----------
--- BUG: The dadbodui opens in a new tab but once I try to reopen it I want it to go back to that tab
 -- BUG: Keymappings don't stick unless I put them at the bottom of this file
 ----------
 -- CODE FOLDING
@@ -73,10 +46,10 @@
 ----------
 -- Treesitter
 ----------
--- BUG: Key map in config Not using config keymapping files
 -- BUG: Python Docstrings not conforming to injection code, start with minial config and work from there.
 -- TODO: Figure out how to get only the examples in a python module docstring to highlight as python code
 -- TODO: On buffer picker, figure out how to delete an unwritten buffer on ALT | SHIFT | d
+-- TODO: Get some templating happening with `vim.treesitter.query.set_query` currently the python injections is getting out of hand!
 ----------
 -- Oil.nvim
 ----------
@@ -89,8 +62,6 @@
 -- basically a way of taking this comment list and then upvote certain things and then schedule days where I can
 -- update the config, and gets the most pressing issues (i.e. this is currently annoying me, it gets an upvote for the
 -- next config day).
--- PLUGIN: Snacks.nvim (especially, buf-delete, indent-lines, dashboard)
--- PLUGIN: See if mini.hicolours can replace todo.comments
 --------------------------------
 
 --------------------------------
@@ -99,7 +70,6 @@
 vim.g["config_path"] = "~/.config/nvim"
 vim.g["mapleader"] = " "
 vim.g.report = 1000
-
 vim.opt.termguicolors = true
 ----------
 
@@ -173,6 +143,7 @@ local config = require("config")
 local utils = config.utils
 local tC = utils.tableConcat
 local python_path = utils.get_python_path()
+local python_exe = utils.get_python_exe()
 local python_packages = utils.get_python_packages()
 local fn = vim.fn
 ----------
@@ -235,6 +206,7 @@ require("mini.starter").setup({
 ----------
 vim.g["do_filetype_lua"] = 1
 vim.g["did_load_filetypes"] = 0
+vim.g.python3_host_prog = python_exe
 ----------
 
 --------------------------------
@@ -606,6 +578,34 @@ vim.keymap.set({ "n", "v" }, lk.database.key .. "x", "<Plug>(DBUI_ExecuteQuery)"
 ----------
 vim.g.db_ui_use_nerd_fonts = 1
 ----------
+
+--------------------------------
+-- Notebook Shite
+--------------------------------
+
+vim.g.molten_auto_open_output = false
+vim.g.molten_image_provider = "image.nvim"
+vim.g.molten_wrap_output = true
+vim.g.molten_virt_text_output = true
+vim.g.molten_virt_lines_off_by_1 = true
+descMap({ "n" }, lk.notebook, "a", ":MoltenEvaluateOperator<CR>", "Molten Something?")
+
+vim.keymap.set(
+  "n",
+  "<localleader>os",
+  ":noautocmd MoltenEnterOutput<CR>",
+  { desc = "open output window", silent = true }
+)
+vim.keymap.set("n", "<localleader>rr", ":MoltenReevaluateCell<CR>", { desc = "re-eval cell", silent = true })
+vim.keymap.set(
+  "v",
+  "<localleader>r",
+  ":<C-u>MoltenEvaluateVisual<CR>gv",
+  { desc = "execute visual selection", silent = true }
+)
+vim.keymap.set("n", "<localleader>oh", ":MoltenHideOutput<CR>", { desc = "close output window", silent = true })
+vim.keymap.set("n", "<localleader>md", ":MoltenDelete<CR>", { desc = "delete Molten cell", silent = true })
+vim.keymap.set("n", "<localleader>mx", ":MoltenOpenInBrowser<CR>", { desc = "open output in browser", silent = true })
 
 --------------------------------
 ---- EOF
