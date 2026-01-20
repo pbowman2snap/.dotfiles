@@ -374,6 +374,7 @@ local default_formatter_config = {
     command = function()
       return utils.get_venv_command("sqlfluff") or "sqlfluff"
     end,
+    cwd = require("conform.util").root_file({ ".sqlfluff", "pyproject.toml", ".git" }),
     args = {
       "format",
       "--config",
