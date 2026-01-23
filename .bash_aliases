@@ -89,15 +89,15 @@ fi
 # Package Management
 # --------
 # Language Packages
-LANG_UPDATE_CMD="npm --location=global update && rustup update rust && cargo install-update -a"
+LANG_UPDATE_CMD="npm --location=global update && rustup update && cargo install-update -a"
 # OS Packages
 if [[ $(uname | grep -c "Linux") == 1 ]]; then
-    [[ $(cat /proc/version | grep -c "UBUNTU") == 1 ]] && PACKAGE_UPDATE_CMD="sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && npm --location=global update"
-    [[ $(cat /proc/version | grep -c "microsoft") == 1 ]] && PACKAGE_UPDATE_CMD="sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && npm --location=global update"
+    [[ $(cat /proc/version | grep -c "UBUNTU") == 1 ]] && PACKAGE_UPDATE_CMD="sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y "
+    [[ $(cat /proc/version | grep -c "microsoft") == 1 ]] && PACKAGE_UPDATE_CMD="sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y "
     [[ $(cat /proc/version | grep -c "MANJARO") == 1 ]] && PACKAGE_UPDATE_CMD="sudo pacman -Syu --noconfirm && yay --noconfirm -Syu && sudo pamac update --no-confirm && sudo pamac clean --no-confirm && sudo pacman --noconfirm -R $(pacman -Qdtq) " && alias spacman="sudo pacman" 
     [[ $(cat /proc/version | grep -c "Red Hat") == 1 ]] && PACKAGE_UPDATE_CMD="sudo dnf update -y && sudo dnf upgrade -y && sudo dnf autoremove -y"
 elif [[ $(uname | grep -c "Darwin") == 1 ]]; then
-    PACKAGE_UPDATE_CMD="brew update && brew upgrade && brew cleanup && npm --location=global update && rustup update rust && cargo install-update -a"
+    PACKAGE_UPDATE_CMD="brew update && brew upgrade && brew cleanup"
 fi
 # Alias Def
 [[ -n "$PACKAGE_UPDATE_CMD" ]] && alias uur="${PACKAGE_UPDATE_CMD} && ${LANG_UPDATE_CMD}" || alias uur="${LANG_UPDATE_CMD}"
