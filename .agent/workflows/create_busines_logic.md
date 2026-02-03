@@ -20,7 +20,9 @@
 **Input**: `task.md` (contains target files) + Spec File.
 **Action**:
 1.  **Read Blueprint**: Open the **Spec File** identified in `task.md`.
-2.  **Transcribe Scenarios**: Translate every scenario defined in the Spec File into a `pytest-kedge` test case in the **Target Test File**.
+2.  **Transcribe Scenarios**: Translate every scenario defined in the Spec File into a test case in the **Target Test File**.
+     > [!NOTE]
+     >  For python projects, please use `pytest-kedge` style tests.
 3.  **Update `task.md`**: Mark items as "Tests Ready" once the suite is complete.
 
 ---

@@ -209,7 +209,7 @@ M.ai_thinking = {
     end
     return ""
   end,
-  color = { palette.light0_hard },
+  color = { fg = palette.light0_hard },
 }
 ------------
 

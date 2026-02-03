@@ -1,0 +1,4 @@
+stack(
+    note("[a2[- [e2 e2]]]").sound("gm_lead_8_bass_lead"),
+    sound(`[bd]*4`).bank("RolandTR808"),
+)
