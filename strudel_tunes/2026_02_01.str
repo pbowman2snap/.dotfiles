@@ -1,0 +1,7 @@
+stack(
+    sound("[- wind:4 wind:8 wind:4]*2"),
+    sound("<wind:1 wind:2>*2"),
+    sound(`[bd]*4, <[hh hh] [- hh*2] [- hh] [- hh*2]>*4`).bank("RolandTR808"),
+    note("<[c1*2] [[c1*0.5]*2 g0 c1 -]>").sound("gm_acoustic_bass")
+)
+
