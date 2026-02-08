@@ -1,3 +1,4 @@
+
 -- ###################### --
 -- #  Main Nvim Config  # --
 -- ###################### --
@@ -124,6 +125,14 @@ vim.api.nvim_create_user_command("Editlsp", "e ~/.config/nvim/lsp/", {})
 vim.api.nvim_create_user_command("Editconfig", "e ~/.config/nvim/lua/config/", {})
 vim.api.nvim_create_user_command("Editsnips", "e ~/.config/nvim/snippets/", {})
 vim.api.nvim_create_user_command("Editterm", "e ~/.wezterm.lua", {})
+vim.api.nvim_create_user_command("Typednewfile", function()
+  vim.ui.input({ prompt = "Enter Filetype: ", completion = "filetype" }, function(input)
+    if input and input ~= "" then
+      vim.cmd("enew")
+      vim.bo.filetype = input
+    end
+  end)
+end, {})
 vim.api.nvim_create_user_command("Editqueries", function()
   edit_based_on_ft("~/.config/nvim/after/queries", "/")
 end, {})
@@ -187,6 +196,7 @@ require("mini.starter").setup({
   items = {
     { name = "New File", action = "new", section = "Quick Draw" },
     { name = "Markdown File", action = "enew | set ft=markdown", section = "Quick Draw" },
+    { name = "Typed New File", action = "Typednewfile", section = "Quick Draw" },
     { name = "Restore Session ", action = "LoadProjectSession", section = "Workspace" },
     { name = "Folder ", action = "Oil", section = "Workspace" },
     {
@@ -253,7 +263,7 @@ local lsp_servers_ei = {
   ["ty"] = "ty",
   ["rust-analyzer"] = "rust-analyzer",
   ["sqruff"] = "sqruff",
-  ["sqlls"] = "sqlls",
+  -- ["sqlls"] = "sqlls",
   ["taplo"] = "taplo",
   ["terraform-ls"] = "terraform-ls",
   ["texlab"] = "texlab",
@@ -347,7 +357,7 @@ local default_formatters_by_ft = {
   python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
   shell = { "beautysh" },
   sh = { "beautysh" },
-  sql = { "sqlfluff" },
+  sql = { "sqruff" },
   rust = { "rustfmt" },
   terraform = { "terraform_fmt" },
   typescript = { "prettier" },
@@ -382,6 +392,18 @@ local default_formatter_config = {
       "--config",
       vim.env.HOME .. "/.config/sqlfluff/.sqlfluff",
       "-",
+    },
+  },
+  sqruff = {
+    command = function()
+      return utils.get_venv_command("sqruff") or "sqruff"
+    end,
+    cwd = require("conform.util").root_file({ "pyproject.toml", ".git" }),
+    args = {
+      "fix",
+      "--dialect",
+      "bigquery",
+      "$FILENAME",
     },
   },
   docformatter = {
