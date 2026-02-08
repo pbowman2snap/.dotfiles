@@ -1,0 +1,30 @@
+setcps(140/60/4)
+
+const key = "E:Lydian"
+
+$: stack(
+    sound("<[bd - bd - ]*2>").bank("RolandTR808"),
+    sound("<[bd - - - ]*2>").bank("dr110"),
+    sound("<[- - sd - ]*2>").bank("dr110").sustain(0.05).gain(4),
+    sound("<[rd]*4>").bank("tr626").sustain(0.02).delay(choose([0.1, 0.2, 0.4])).delaytime(1/16).gain(5)
+)
+
+$: stack(
+ note("<[[[0 0] 0] [[0 0] 0]]>*2").scale(key).transpose(-24).attack(0.5).sustain(0.5).gain(4).sound("wt_digital").gain(sine.range(8,4).slow(16)),
+ note("<[0]>/2").scale(key).transpose(-24).attack(0.5).sustain(0.5).gain(4).sound("wt_digital").gain(sine.range(0,4).slow(2))
+).gain(4)
+
+$: stack(
+    note("[[6 5 ~ 5][3 4 ~ 4]]").scale(key).sound("sawtooth").hpf(sine.range(0,100)).sustain(0.2).transpose(0).gain(1.25)
+).gain(sine.range(2, 0.5).slow(128))
+
+// Maybe replace this with a synth? The piano is too acousitcy
+$: stack(
+    note("[[1 2 1 0]*4]").scale(key).sound("harp").hpf(sine.range(0,100)).sustain(0.15).transpose(0).gain(1.25)
+).gain(sine.range(2, 8).slow(128))
+
+$: stack(
+    note("[[0 2 0 6]*8 [0 4 0 7]*8]").scale(key).sound("triangle").transpose(0).sustain(0.2).gain(0.5).hpf(sine.range(500,1000)),
+    note("[[0 9 4 9]*8 [0 8 3 8]*8]").scale(key).sound("triangle").transpose(0).sustain(0.2).gain(0.5).hpf(sine.range(500,1000))
+).gain(sine.range(0.25, 0.5).slow(48))
+

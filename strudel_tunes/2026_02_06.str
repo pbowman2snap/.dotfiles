@@ -8,11 +8,15 @@ $: stack(
   s("[~ rim:1] ~ [~ rim:1] ~ ~ [~ rim:1] ~  ~").bank("tr626").rev().sustain(2).gain("2 2 2").delay("0.0 0.0 0.0"),
   // The Shakers: Consistent 16th notes
   s("hh*16").bank("dr110").gain("0.2 0.2 0.2 0.2"),
+  s("cr").bank("dr110").struct("[0 0 0 0]/4").gain("1.25").delay(0.8).room(1)
   // The Snare: Hits on the off-beats
 )
 
 $: stack(
-    n("<c1*8 f1*8>").s("sine").lpf(300).shape(0.4).attack(0.15).sustain(0.18)
-    .gain(sine.range(0.5,2.5).fast(4))
-    .struct("1 1 1 1 1 1 1 1")
+    n("<c1*8 f1*8>").s("sine").lpf(300).shape(0.4).attack(0.15).sustain(0.2)
+    .gain(sine.range(2.5,5).fast(4))
+    .struct("1 1 1 1 1 1 1 1"),
+    n("<c1*8 f1*8>").s("gm_synth_bass_2").lpf(75).shape(0.4).attack(0.1).sustain(0.2)
+    .gain(5)
+    .struct("[1 [~ 1]]*2")
 )

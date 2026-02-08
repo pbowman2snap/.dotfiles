@@ -151,8 +151,13 @@ return {
   },
   { "ellisonleao/gruvbox.nvim", priority = 1000 },
   {
-    "cameron-wags/rainbow_csv.nvim",
-    config = true,
+    "mechatroner/rainbow_csv",
+    config = function()
+      -- This plugin is Vimscript-based, so we leave the config
+      -- function empty or use it to set Vim global variables.
+      vim.g.rbql_with_headers = 1 -- Example: if your CSVs usually have headers
+    end,
+    lazy = false, -- Recommended for filetype plugins to avoid detection issues
     ft = {
       "csv",
       "tsv",
@@ -161,12 +166,6 @@ return {
       "csv_pipe",
       "rfc_csv",
       "rfc_semicolon",
-    },
-    cmd = {
-      "RainbowDelim",
-      "RainbowDelimSimple",
-      "RainbowDelimQuoted",
-      "RainbowMultiDelim",
     },
   },
   { "onsails/lspkind.nvim", event = "VeryLazy" },
