@@ -176,15 +176,20 @@ config.keys = {
   },
   -- Pane focus
   {
-    key = 'h',
-    mods = 'CTRL|SHIFT|CMD',
-    action = wezterm.action.ActivatePaneDirection 'Left',
+    key = "h",
+    mods = "CTRL|SHIFT|CMD",
+    action = wezterm.action.ActivatePaneDirection("Left"),
   },
   {
-    key = 'l',
-    mods = 'CTRL|SHIFT|CMD',
-    action = wezterm.action.ActivatePaneDirection 'Right',
+    key = "l",
+    mods = "CTRL|SHIFT|CMD",
+    action = wezterm.action.ActivatePaneDirection("Right"),
   },
+  -- Move Panes Visually
+  { key = "LeftArrow", mods = "CTRL|SHIFT|CMD", action = wezterm.action.MoveTabRelative(-1) },
+  { key = "RightArrow", mods = "CTRL|SHIFT|CMD", action = wezterm.action.MoveTabRelative(1) },
+  { key = "LeftArrow", mods = "CTRL|SHIFT", action = wezterm.action.RotatePanes("Clockwise") },
+  { key = "RightArrow", mods = "CTRL|SHIFT", action = wezterm.action.RotatePanes("CounterClockwise") },
 }
 ----------
 
