@@ -2,8 +2,7 @@ vim.bo.tabstop = 4
 vim.bo.shiftwidth = 4
 vim.opt_local.colorcolumn = "90"
 
-local injection_languages = { "html", "jinja", "sql", "json", "graphql" }
-
+-- TS:scheme
 local dynamic_query = [[
 ;;; Match strings preceded by a comment directive "TS:%s"
 (
@@ -17,7 +16,7 @@ local dynamic_query = [[
           (assignment
             right: (string
               (string_content) @injection.content
-              (#set! injection.language "%s")
+                (#set! injection.language "%s")(#set! priority 150) (#set! priority 150) 
             )
           )
         )
@@ -29,7 +28,7 @@ local dynamic_query = [[
               arguments: (argument_list
                 (string
                   (string_content) @injection.content
-                  (#set! injection.language "%s")
+                (#set! injection.language "%s")(#set! priority 150) (#set! priority 150)
                 )
               )
             )
@@ -40,7 +39,7 @@ local dynamic_query = [[
         (expression_statement
           (string
             (string_content) @injection.content
-            (#set! injection.language "%s")
+              (#set! injection.language "%s")(#set! priority 150) 
           )
         )
         
@@ -50,7 +49,7 @@ local dynamic_query = [[
             arguments: (argument_list
               (string
                 (string_content) @injection.content
-                (#set! injection.language "%s")
+                  (#set! injection.language "%s")(#set! priority 150) 
               )
             )
           )
@@ -60,7 +59,7 @@ local dynamic_query = [[
         (return_statement
           (string
             (string_content) @injection.content
-            (#set! injection.language "%s")
+              (#set! injection.language "%s")(#set! priority 150) 
           )
         )
         
@@ -70,7 +69,7 @@ local dynamic_query = [[
             (default_parameter
               value: (string
                 (string_content) @injection.content
-                (#set! injection.language "%s")
+                  (#set! injection.language "%s")(#set! priority 150) 
               )
             )
           )
@@ -80,7 +79,7 @@ local dynamic_query = [[
         (pair
           value: (string
             (string_content) @injection.content
-            (#set! injection.language "%s")
+              (#set! injection.language "%s")(#set! priority 150) 
           )
         )
       ]
@@ -91,7 +90,7 @@ local dynamic_query = [[
       (assignment
         right: (string
           (string_content) @injection.content
-          (#set! injection.language "%s")
+              (#set! injection.language "%s")(#set! priority 150) 
         )
       )
     )
@@ -100,7 +99,7 @@ local dynamic_query = [[
     (keyword_argument
       value: (string
         (string_content) @injection.content
-        (#set! injection.language "%s")
+              (#set! injection.language "%s")(#set! priority 150) 
       )
     )
     
@@ -110,7 +109,7 @@ local dynamic_query = [[
         arguments: (argument_list
           (string
             (string_content) @injection.content
-            (#set! injection.language "%s")
+              (#set! injection.language "%s")(#set! priority 150) 
           )
         )
       )
@@ -121,6 +120,7 @@ local dynamic_query = [[
 )
 ]]
 
+-- TS:scheme
 local constant_query = [[
 
 ;; Match Module Strings as Markdown
@@ -163,6 +163,8 @@ local constant_query = [[
 
 ]]
 
+vim.api.nvim_set_hl(0, "@lsp.type.string.python", {})
+local injection_languages = { "html", "jinja", "sql", "json", "graphql" }
 local full_query =
   require("config.utils").create_treesitter_injection_query(constant_query, dynamic_query, injection_languages)
 vim.treesitter.query.set("python", "injections", full_query)

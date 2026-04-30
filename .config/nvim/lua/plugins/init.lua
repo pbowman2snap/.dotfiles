@@ -260,6 +260,12 @@ return {
     },
     ft = { "markdown", "quarto" },
   },
+  -- Rust Complexities
+  {
+    "mrcjkb/rustaceanvim",
+    version = "^5",
+    lazy = false,
+  },
   -- Comment Flair
   {
     "folke/todo-comments.nvim",

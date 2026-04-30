@@ -268,18 +268,18 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- Change Gemini's Fucked Diff Colours
 ----------
-vim.api.nvim_create_autocmd({"WinEnter", "BufEnter", "OptionSet"}, {
-    pattern = "*",
-    callback = function()
-        -- vim.wo.diff checks if the current window is in diff mode
-        if vim.wo.diff then
-            -- We use 'nil' for fg to ensure we don't accidentally inherit weird text colors
-            vim.api.nvim_set_hl(0, 'DiffAdd', { bg = '#e1e4b5', fg = nil })
-            vim.api.nvim_set_hl(0, 'DiffDelete', { bg = '#f2c6c2', fg = nil })
-            vim.api.nvim_set_hl(0, 'DiffChange', { bg = '#d8e1d7', fg = nil })
-            vim.api.nvim_set_hl(0, 'DiffText', { bg = '#bdae93', fg = nil })
-        end
-    end,
+vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter", "OptionSet" }, {
+  pattern = "*",
+  callback = function()
+    -- vim.wo.diff checks if the current window is in diff mode
+    if vim.wo.diff then
+      -- We use 'nil' for fg to ensure we don't accidentally inherit weird text colors
+      vim.api.nvim_set_hl(0, "DiffAdd", { bg = "#e1e4b5", fg = nil })
+      vim.api.nvim_set_hl(0, "DiffDelete", { bg = "#f2c6c2", fg = nil })
+      vim.api.nvim_set_hl(0, "DiffChange", { bg = "#d8e1d7", fg = nil })
+      vim.api.nvim_set_hl(0, "DiffText", { bg = "#bdae93", fg = nil })
+    end
+  end,
 })
 ----------
 
@@ -351,6 +351,7 @@ local lsp_servers_ei = {
   ["typescript-language-server"] = "ts_ls",
   ["yaml-language-server"] = "yamlls",
   ["graphql-language-service-cli"] = "graphql-language-service-cli",
+  ["lemminx"] = "lemminx",
 }
 -- Formatters
 local formatters_ei = {
@@ -363,6 +364,7 @@ local formatters_ei = {
   "stylua",
   "tex-fmt",
   "yq",
+  "xmlformatter",
 }
 -- Linters
 local linters_ei = {
@@ -448,6 +450,7 @@ local default_formatters_by_ft = {
   tex = { "tex-fmt" },
   yaml = { "yq" },
   toml = { "taplo" },
+  xml = { "xmlformatter" },
 }
 
 local default_formatter_config = {
@@ -675,6 +678,25 @@ dap.configurations.lua = {
 dap.adapters.nlua = function(callback, config)
   callback({ type = "server", host = config.host or "127.0.0.1", port = config.port or 8086 })
 end
+----------
+
+-- Rust
+----------
+dap.adapters.codelldb = {
+  type = "server",
+  port = "${port}",
+  executable = {
+    command = vim.fn.exepath("codelldb") ~= "" and vim.fn.exepath("codelldb")
+      or vim.fn.expand("~/.local/share/nvim/mason/bin/codelldb"),
+    args = { "--port", "${port}" },
+  },
+}
+
+vim.g.rustaceanvim = {
+  dap = {
+    adapter = dap.adapters.codelldb,
+  },
+}
 ----------
 
 -- Toggle Database

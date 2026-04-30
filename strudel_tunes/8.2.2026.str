@@ -17,21 +17,21 @@ chooseCycles(0.1, 0.15),
 chooseCycles(0.01, 0.02, 0.03, 0)
 ).gain(2).hpf(500).lpf(2000)
 
-$: n("<[~ 2 ~ 2]><[~ 2 ~ 2][~ 2 ~ 2][~ 2 ~ 2][~ 4 ~ 4]>").s("gm_acoustic_guitar_steel").scale("C:Minor").transpose(24).adsr(
+_$: n("<[~ 2 ~ 2]><[~ 2 ~ 2][~ 2 ~ 2][~ 2 ~ 2][~ 4 ~ 4]>").s("gm_acoustic_guitar_steel").scale("C:Minor").transpose(24).adsr(
 chooseCycles(0),
 chooseCycles(0.01, 0.02, 0.03, 0),
 chooseCycles(0.01, 0.02, 0.03, 0),
 chooseCycles(0.01, 0.02, 0.03, 0)
 ).gain(2).hpf(500).lpf(2000).pan(1)
 
-$: n("<[0 ~ 2 ~]><[2 ~ 2 ~][2 ~ 2 ~][2 ~ 2 ~][4 ~ 4 ~]>").s("gm_acoustic_guitar_steel").scale("C:Minor").transpose(24).adsr(
+_$: n("<[0 ~ 2 ~]><[2 ~ 2 ~][2 ~ 2 ~][2 ~ 2 ~][4 ~ 4 ~]>").s("gm_acoustic_guitar_steel").scale("C:Minor").transpose(24).adsr(
 chooseCycles(0),
 chooseCycles(0.01, 0.02, 0.03, 0),
 chooseCycles(0.01, 0.02, 0.03, 0),
 chooseCycles(0.01, 0.02, 0.03, 0)
 ).gain(2).hpf(500).lpf(2000).pan(0)
 
-$: n("[0 2 2 2]<[2 2 2 2][2 2 2 2][2 2 2 2][4 4 4 4]>").s(chooseCycles(sine, saw, square)).scale("C:Minor").transpose(-24).gain(1).adsr(
+_$: n("[0 2 2 2]<[2 2 2 2][2 2 2 2][2 2 2 2][4 4 4 4]>").s(chooseCycles(sine, saw, square)).scale("C:Minor").transpose(-24).gain(1).adsr(
 chooseCycles(0, 0.1),
 chooseCycles(0.01, 0.02, 0.03, 0),
 chooseCycles(0.1, 0.15),
