@@ -165,6 +165,14 @@ config.keys = {
     }),
   },
   {
+    key = "|",
+    mods = "CTRL|SHIFT|CMD",
+    action = wezterm.action.SplitPane({
+      direction = "Down",
+      size = { Percent = 25 },
+    }),
+  },
+  {
     key = "h",
     mods = "CTRL|SHIFT",
     action = wezterm.action.AdjustPaneSize({ "Left", 5 }),
@@ -174,17 +182,42 @@ config.keys = {
     mods = "CTRL|SHIFT",
     action = wezterm.action.AdjustPaneSize({ "Right", 5 }),
   },
+  {
+    key = "k",
+    mods = "CTRL|SHIFT",
+    action = wezterm.action.AdjustPaneSize({ "Up", 5 }),
+  },
+  {
+    key = "j",
+    mods = "CTRL|SHIFT",
+    action = wezterm.action.AdjustPaneSize({ "Down", 5 }),
+  },
   -- Pane focus
   {
-    key = 'h',
-    mods = 'CTRL|SHIFT|CMD',
-    action = wezterm.action.ActivatePaneDirection 'Left',
+    key = "h",
+    mods = "CTRL|SHIFT|CMD",
+    action = wezterm.action.ActivatePaneDirection("Left"),
   },
   {
-    key = 'l',
-    mods = 'CTRL|SHIFT|CMD',
-    action = wezterm.action.ActivatePaneDirection 'Right',
+    key = "l",
+    mods = "CTRL|SHIFT|CMD",
+    action = wezterm.action.ActivatePaneDirection("Right"),
   },
+  {
+    key = "k",
+    mods = "CTRL|SHIFT|CMD",
+    action = wezterm.action.ActivatePaneDirection("Up"),
+  },
+  {
+    key = "j",
+    mods = "CTRL|SHIFT|CMD",
+    action = wezterm.action.ActivatePaneDirection("Down"),
+  },
+  -- Move Panes Visually
+  { key = "LeftArrow", mods = "CTRL|SHIFT|CMD", action = wezterm.action.MoveTabRelative(-1) },
+  { key = "RightArrow", mods = "CTRL|SHIFT|CMD", action = wezterm.action.MoveTabRelative(1) },
+  { key = "LeftArrow", mods = "CTRL|SHIFT", action = wezterm.action.RotatePanes("Clockwise") },
+  { key = "RightArrow", mods = "CTRL|SHIFT", action = wezterm.action.RotatePanes("CounterClockwise") },
 }
 ----------
 

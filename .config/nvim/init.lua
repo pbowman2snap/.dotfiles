@@ -322,6 +322,7 @@ local treesitter_ei = {
   "requirements",
   "rst",
   "rust",
+  "sql",
   "terraform",
   "toml",
   "typescript",
