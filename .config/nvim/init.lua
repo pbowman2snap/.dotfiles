@@ -268,18 +268,18 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- Change Gemini's Fucked Diff Colours
 ----------
-vim.api.nvim_create_autocmd({"WinEnter", "BufEnter", "OptionSet"}, {
-    pattern = "*",
-    callback = function()
-        -- vim.wo.diff checks if the current window is in diff mode
-        if vim.wo.diff then
-            -- We use 'nil' for fg to ensure we don't accidentally inherit weird text colors
-            vim.api.nvim_set_hl(0, 'DiffAdd', { bg = '#e1e4b5', fg = nil })
-            vim.api.nvim_set_hl(0, 'DiffDelete', { bg = '#f2c6c2', fg = nil })
-            vim.api.nvim_set_hl(0, 'DiffChange', { bg = '#d8e1d7', fg = nil })
-            vim.api.nvim_set_hl(0, 'DiffText', { bg = '#bdae93', fg = nil })
-        end
-    end,
+vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter", "OptionSet" }, {
+  pattern = "*",
+  callback = function()
+    -- vim.wo.diff checks if the current window is in diff mode
+    if vim.wo.diff then
+      -- We use 'nil' for fg to ensure we don't accidentally inherit weird text colors
+      vim.api.nvim_set_hl(0, "DiffAdd", { bg = "#e1e4b5", fg = nil })
+      vim.api.nvim_set_hl(0, "DiffDelete", { bg = "#f2c6c2", fg = nil })
+      vim.api.nvim_set_hl(0, "DiffChange", { bg = "#d8e1d7", fg = nil })
+      vim.api.nvim_set_hl(0, "DiffText", { bg = "#bdae93", fg = nil })
+    end
+  end,
 })
 ----------
 
@@ -322,6 +322,7 @@ local treesitter_ei = {
   "requirements",
   "rst",
   "rust",
+  "sql",
   "terraform",
   "toml",
   "typescript",
