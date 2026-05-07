@@ -2,6 +2,7 @@
 node = '24.0'
 lua = '5.1'
 python = '3.13.0'
+"npm:@mermaid-js/mermaid-cli" = "latest"
 
 [settings]
 experimental = true
