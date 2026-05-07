@@ -236,11 +236,11 @@ function get_git_branch() {
 }
 
 function gdom() {
-    git diff "origin/$(git_default_branch)...HEAD"
+    git diff "origin/$(git_default_branch)"
 }
 
 function gdofm() {
-    git diff "origin/$(git_default_branch)...HEAD" --name-only
+    git diff "origin/$(git_default_branch)" --name-only
 }
 # Aliases
 alias g='git'
